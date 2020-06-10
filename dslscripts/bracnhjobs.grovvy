@@ -1,5 +1,7 @@
 import groovy.json.JsonSlurper
 
+//JsonSlurper is the module for parsing json text or reader content into Groovy Data Structures
+
 String basePath = 'multipleBranches'
 String repo = 'sheehan/grails-example'
 
@@ -7,12 +9,14 @@ folder(basePath) {
     description 'This example shows how to create a set of jobs for each github branch, each in its own folder.'
 }
 
+//the below line fetches the list of branch url from the repos and the subsequent line parses it and stores in in Groovy DS
 URL branchUrl = "https://api.github.com/repos/$repo/branches".toURL()
 List branches = new JsonSlurper().parse(branchUrl.newReader())
 branches.each { branch ->
-
+    // replaces / with -
     String safeBranchName = branch.name.replaceAll('/', '-')
 
+    // this function creates the updates folder in jenkins
     folder "$basePath/$safeBranchName"
 
     job("$basePath/$safeBranchName/grails-example-build") {

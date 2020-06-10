@@ -1,2 +1,2 @@
 # jenkinsdsl
-This repository used to store the jenkins dsl scripts
+This repository contains the dsl scripts explored for learning
